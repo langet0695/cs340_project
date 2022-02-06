@@ -20,6 +20,10 @@ app.get('/', function(req, res)
     {
         res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
     });                                         // will process this file, before sending the finished HTML to the client.                                      // requesting the web site.
+app.get('/create', function(req, res)
+{
+    res.render('create');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+});   
 
 /*
     LISTENER
