@@ -1,11 +1,97 @@
 <!-- customers.hbs -->
-<h1>This is the page to enable an admin to interact with the customers table in the db </h1>
+<h1>Plants Unlimited: <b style="color:blue">Customers</b></h1>
 
-<p>Functionality To Add 
-    <ul>
-        <li>Ability to add new customers to the table</li>
-        <li></li>
-        <li></li>
-        <li>Ability to delete old customers from the table</li>
-    </ul>
+<p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Customers table for Plants Unlimited. 
+    When executing CRUD functions we recommend providing as much detail as possible, though if some specific customer 
+    information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
+    is being left out leave the text or selection blank.
 </p>
+
+<form>
+    <label>What action would you like to take in the Customers table: </label>
+    <select name="crud" id="crud">
+        <option value="create">Create</option>
+        <option value="read">Read</option>
+        <option value="update">Update</option>
+        <option value="delete">Delete</option>
+    </select>
+    
+    <br>
+    
+    <label>Are you providing a Customer ID? </label>
+    <input type="radio" id="yes" name="include_cid" value="yes">
+        <label for="include_cid">Yes</label>
+    <input type="radio" id="no" name="include_cid" value="no">
+       <label for="include_cid">No</label>
+        
+    <label for="customerID">If yes, enter the customerID: </label>
+    <input type="text" id="customerID" name="customerID">
+    
+    <br>
+
+    <label>Are you providing a customer email? </label>
+    <input type="radio" id="yes" name="include_email" value="yes">
+        <label for="include_email">Yes</label>
+    <input type="radio" id="no" name="include_email" value="no">
+       <label for="include_email">No</label>
+        
+    <label for="email">If yes, enter the customer email: </label>
+    <input type="text" id="email" name="email">
+
+    <br>
+
+    <label>Are you providing a street? </label>
+    <input type="radio" id="yes" name="include_street" value="yes">
+        <label for="include_street">Yes</label>
+    <input type="radio" id="no" name="include_street" value="no">
+       <label for="include_street">No</label>
+        
+    <label for="street">If yes, enter the street: </label>
+    <input type="text" id="street" name="street">
+
+    <br>
+
+    <label>Are you providing a city? </label>
+    <input type="radio" id="yes" name="include_city" value="yes">
+        <label for="include_city">Yes</label>
+    <input type="radio" id="no" name="include_city" value="no">
+       <label for="include_city">No</label>
+        
+    <label for="city">If yes, enter the city: </label>
+    <input type="text" id="city" name="city">
+
+    <br>
+
+    <label>Are you providing a zip? </label>
+    <input type="radio" id="yes" name="include_zip" value="yes">
+        <label for="include_zip">Yes</label>
+    <input type="radio" id="no" name="include_zip" value="no">
+       <label for="include_zip">No</label>
+        
+    <label for="zip">If yes, enter the street: </label>
+    <input type="text" id="zip" name="zip">
+
+    <br>
+
+    <label>What is the status of the customer: </label>
+    <select name="status" id="status">
+        <option value="unset">...</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select>
+    
+    <br>
+
+    <label>What was the last time the customer purchased from Plants Unlimited: </label>
+    <input type="date" id="lastPurchaseDate" name="lastPurchaseDate" min="2018-01-01" max="2055-12-31">
+
+    <br>
+
+    <label for="lastPurchaseID">If known, what was the id of the last item the customer purchased: </label>
+    <input type="text" id="lastPurchaseID" name="lastPurchaseID">
+    <br>
+
+    <input type="submit"></input>
+</form>
+
+<p><b>Results: </b></p>
