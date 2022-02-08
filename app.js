@@ -41,6 +41,10 @@ app.get('/products', function(req, res)
     res.render('products');                    // Note the call to render() and not send(). Using render() ensures the templating engine
 });   
 
+app.get('/orderContents', function(req, res)
+{
+    res.render('orderContents');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+});   
 
 /*
     LISTENER
