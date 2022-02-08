@@ -1,0 +1,51 @@
+<!-- customers.hbs -->
+<h1>Plants Unlimited: <b style="color:Purple">OrderContents</b></h1>
+
+<p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Products table for Plants Unlimited. 
+    When executing CRUD functions we recommend providing as much detail as possible, though if some specific product 
+    information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
+    is being left out leave the text or selection blank.
+</p>
+
+<form>
+    <label>What action would you like to take in the Product table: </label>
+    <select name="crud" id="crud">
+        <option value="create">Create</option>
+        <option value="read">Read</option>
+        <option value="update">Update</option>
+        <option value="delete">Delete</option>
+    </select>
+    
+    <br>
+    
+    <label>Are you providing a Content ID? </label>
+    <input type="radio" id="yes" name="include_cid" value="yes">
+        <label for="include_cid">Yes</label>
+    <input type="radio" id="no" name="include_cid" value="no">
+       <label for="include_cid">No</label>
+        
+    <label for="cid">If yes, enter the contentID: </label>
+    <input type="text" id="cid" name="cid">
+    
+    <br>
+
+    <label>Are you providing a Order ID? </label>
+    <input type="radio" id="yes" name="include_oid" value="yes">
+        <label for="include_oid">Yes</label>
+    <input type="radio" id="no" name="include_oid" value="no">
+       <label for="include_ppid">No</label>
+        
+    <label for="oid">If yes, enter the orderID: </label>
+    <input type="text" id="oid" name="oid">
+    
+    <br>
+
+    <label for="quantityOrdered">What is the price of the quantity ordered: </label>
+    <input type="number" id="quantityOrdered" name="quantityOrdered">
+    
+    <br>
+
+    <input type="submit"></input>
+</form>
+
+<p><b>Results: </b></p>
