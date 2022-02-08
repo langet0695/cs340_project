@@ -25,27 +25,22 @@ app.get('/customers', function(req, res)
 {
     res.render('customers');                    // Note the call to render() and not send(). Using render() ensures the templating engine
 });   
-    
 
-app.get('/create', function(req, res)
+app.get('/promotions', function(req, res)
 {
-    res.render('create');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+    res.render('promotions');                    // Note the call to render() and not send(). Using render() ensures the templating engine
 });   
 
-app.get('/read', function(req, res)
+app.get('/sales', function(req, res)
 {
-    res.render('read');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+    res.render('sales');                    // Note the call to render() and not send(). Using render() ensures the templating engine
 });   
 
-app.get('/update', function(req, res)
+app.get('/products', function(req, res)
 {
-    res.render('update');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+    res.render('products');                    // Note the call to render() and not send(). Using render() ensures the templating engine
 });   
 
-app.get('/delete', function(req, res)
-{
-    res.render('delete');                    // Note the call to render() and not send(). Using render() ensures the templating engine
-});   
 
 /*
     LISTENER
