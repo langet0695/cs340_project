@@ -1,0 +1,48 @@
+<!-- customers.hbs -->
+<h1>Plants Unlimited: <b style="color:red">Promtions</b></h1>
+
+<p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Promotions table for Plants Unlimited. 
+    When executing CRUD functions we recommend providing as much detail as possible, though if some specific promotion 
+    information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
+    is being left out leave the text or selection blank.
+</p>
+
+<form>
+    <label>What action would you like to take in the Promotions table: </label>
+    <select name="crud" id="crud">
+        <option value="create">Create</option>
+        <option value="read">Read</option>
+        <option value="update">Update</option>
+        <option value="delete">Delete</option>
+    </select>
+    
+    <br>
+    
+    <label>Are you providing a Promo ID? </label>
+    <input type="radio" id="yes" name="include_pid" value="yes">
+        <label for="include_pid">Yes</label>
+    <input type="radio" id="no" name="include_pid" value="no">
+       <label for="include_pid">No</label>
+        
+    <label for="promoID">If yes, enter the promoID: </label>
+    <input type="text" id="promoID" name="promoID">
+
+    <br>
+
+    <label>What is the status of the promotion: </label>
+    <select name="status" id="status">
+        <option value="unset">...</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select>
+    
+    <br>
+
+    <label for="discountSize">What is the size of the discount: </label>
+    <input type="number" id="discountSize" name="discountSize">
+    <br>
+
+    <input type="submit"></input>
+</form>
+
+<p><b>Results: </b></p>
