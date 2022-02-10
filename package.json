@@ -17,6 +17,9 @@
     "url": "https://github.com/langet0695/cs340_project/issues"
   },
   "homepage": "https://github.com/langet0695/cs340_project#readme",
+  "engines": {
+    "node": "14.17.6"
+  },
   "dependencies": {
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
