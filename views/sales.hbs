@@ -63,8 +63,35 @@
     <input type="number" id="totalPrice" name="totalPrice">
 
     <br>
-
-    <input type="submit"></input>
-</form>
+     <input type="submit"></input>
+    <p></p>
 
 <p><b>Results: </b></p>
+<p></p>
+<table>
+    <thead> 
+<th>OrderID</th>
+
+<th>CustomerID</th>
+
+<th>SalesDate</th>
+
+<th>OrderFulFilled</th>
+
+<th>OrderFulFilledDate</th>
+
+<th>TotlaPrice</th>
+</thead>
+<tbody>
+        {{#each sales}} 
+        <tr> 
+            <td>{{this.orderID}}</td> 
+            <td>{{this.customerID}}</td> 
+            <td>{{this.saleDate}}</td> 
+            <td>{{this.orderFulfilled}}</td>
+            <td>{{this.orderFulfilledDate}}</td>
+            <td>{{this.totalPrice}}</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 

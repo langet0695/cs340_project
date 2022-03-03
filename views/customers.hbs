@@ -95,3 +95,28 @@
 </form>
 
 <p><b>Results: </b></p>
+<table>
+    <thead> 
+<th>customerID</th>
+<th>email</th>
+<th>Street</th>
+<th>City</th>
+<th>Zip</th>
+<th>Status</th>
+<th>Last Purchase</th>
+<th>Purchase ID</th>
+
+</thead>
+<tbody>
+        {{#each customers}} 
+        <tr> 
+            <td>{{this.customerID}}</td> 
+            <td>{{this.email}}</td> 
+            <td>{{this.street}}</td> 
+            <td>{{this.city}}</td>
+            <td>{{this.zip}}</td>
+            <td>{{this.status}}</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 

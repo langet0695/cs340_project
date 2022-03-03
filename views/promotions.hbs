@@ -1,5 +1,5 @@
 <!-- customers.hbs -->
-<h1>Plants Unlimited: <b style="color:red">Promtions</b></h1>
+<h1>Plants Unlimited: <b style="color:red">promotions</b></h1>
 <li><a href="/">Homepage</a></li>
 <p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Promotions table for Plants Unlimited. 
     When executing CRUD functions we recommend providing as much detail as possible, though if some specific promotion 
@@ -58,3 +58,25 @@
 </form>
 
 <p><b>Results: </b></p>
+<table>
+    <thead> 
+<th>Promotion</th>
+
+<th>PromoID</th>
+
+<th>Status</th>
+
+<th>discountSize</th>
+
+</thead>
+ <tbody>
+        {{#each promotions}} 
+        <tr> 
+            <td>{{promoID}}</td> 
+            <td>{{status}}</td> 
+            <td>{{discountSize}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+      

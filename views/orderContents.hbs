@@ -57,3 +57,26 @@
 </form>
 
 <p><b>Results: </b></p>
+<table>
+    <thead> 
+<th>OrderContents</th>
+
+<th>ContentID</th>
+
+<th>OrderID</th>
+
+<th>ProductID</th>
+
+<th>QuantityOrdered</th>
+</thead>
+<tbody>
+        {{#each orderContents}} 
+        <tr> 
+            <td>{{this.contentID}}</td> 
+            <td>{{this.orderID}}</td> 
+            <td>{{this.productID}}</td> 
+            <td>{{this.quantityOrdered}}</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 

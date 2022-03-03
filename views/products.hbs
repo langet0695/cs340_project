@@ -74,3 +74,31 @@
 </form>
 
 <p><b>Results: </b></p>
+<table>
+    <thead> 
+<th>ProductsID</th>
+
+<th>PromoID</th>
+
+<th>ProductType</th>
+
+<th>Description</th>
+
+<th>Price</th>
+
+<th>QuantityInStock</th>
+</thead>
+<tbody>
+        {{#each products}} 
+        <tr> 
+            <td>{{productID}}</td> 
+            <td>{{promoID}}</td> 
+            <td>{{ProductType}}</td> 
+            <td>{{description}}</td>
+             <td>{{price}}</td>
+              <td>{{quantityInStock}}</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+      
