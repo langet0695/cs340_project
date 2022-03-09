@@ -5,7 +5,7 @@
 */
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 80;        
+PORT        = 3050;        
 
 var db = require('./Database/db-connector');         // Set a port number at the top so it's easy to change in the future
 
@@ -94,7 +94,7 @@ function getAndRenderpromotions(req, res)
                 d.promotions.push(result);
             });
     
-            res.render('promtions', d);
+            res.render('Promotions', d);
         }
     });
 }
@@ -163,6 +163,12 @@ app.get('/customers', function(req, res)
                 getAndRenderCustomers(req, res);
             }
         });
+    } else if (req.query["crud"] && req.query.crud == 'delete') {
+        // Delete using email as the identifier
+        let sql = `Delete From Customers Where email = ${req.query.email};`
+        console.log(sql)
+        db.pool.query(sql)
+        getAndRenderCustomers(req, res);
     } else {
         getAndRenderCustomers(req, res);
     }
@@ -194,6 +200,12 @@ app.get('/promotions', function(req, res)
                 getAndRenderpromotions(req, res);
             }
         });
+    } else if (req.query["crud"] && req.query.crud == 'delete') {
+        // Delete using promoId as the identifier
+        let sql = `Delete From Promotions Where promoID = ${req.query.promoID};`
+        console.log(sql)
+        db.pool.query(sql)
+        getAndRenderpromotions(req, res);
     } else {
         getAndRenderpromotions(req, res);
     }
@@ -225,6 +237,12 @@ app.get('/sales', function(req, res)
                 getAndRendersales(req, res);
             }
         });
+    } else if (req.query["crud"] && req.query.crud == 'delete') {
+        // Delete using orderId as the identifier
+        let sql = `Delete From Sales Where orderID= ${req.query.orderID};`
+        console.log(sql)
+        db.pool.query(sql)
+        getAndRendersales(req, res);
     } else {
         getAndRendersales(req, res);
     }
@@ -256,6 +274,12 @@ app.get('/products', function(req, res)
                 getAndRenderproducts(req, res);
             }
         });
+    } else if (req.query["crud"] && req.query.crud == 'delete') {
+        // Delete using productType as the identifier
+        let sql = `Delete From PlantsUnlimitedProducts Where productType = ${req.query.type};`
+        console.log(sql)
+        db.pool.query(sql)
+        getAndRenderproducts(req, res);
     } else {
         getAndRenderproducts(req, res);
     }
@@ -286,6 +310,12 @@ app.get('/orderContents', function(req, res)
                 getAndRenderorderContents(req, res);
             }
         });
+    } else if (req.query["crud"] && req.query.crud == 'delete') {
+        // Delete using cid as the identifier
+        let sql = `Delete From OrderContents Where contentID = ${req.query.cid};`
+        console.log(sql)
+        db.pool.query(sql)
+        getAndRenderorderContents(req, res);
     } else {
         getAndRenderorderContents(req, res);
     }
