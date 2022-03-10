@@ -18,15 +18,6 @@
 
 
     <br>
-    <label>Are you providing a Product ID? </label>
-    <input type="radio" id="yes" name="include_pid" value="yes">
-    <label for="include_pid">Yes</label>
-    <input type="radio" id="no" name="include_pid" value="no">
-    <label for="include_pid">No </label>
-
-    <label for="productID">If yes, enter the productID: </label>
-    <input type="text" id="productID" name="productID">
-    <br>
     
     <label>Are you providing a Promo ID? </label>
     <input type="radio" id="yes" name="include_pid" value="yes">
@@ -41,15 +32,15 @@
 
     <label>What is the status of the promotion: </label>
     <select name="status" id="status">
-    <option value="unset">...</option>
-    <option value="Active">Active</option>
-    <option value="Inactive">Inactive</option>
+    <option value="-1">...</option>
+    <option value="1">Active</option>
+    <option value="0">Inactive</option>
     </select>
     
     <br>
 
     <label for="discountSize">What is the size of the discount: </label>
-    <input type="number" id="discountSize" name="discountSize">
+    <input type="number" min="0" max="1" step="0.01" id="discountSize" name="discountSize">
     
     <br>
 
@@ -60,8 +51,6 @@
 <p><b>Results: </b></p>
 <table>
     <thead> 
-<th>Promotion</th>
-
 <th>PromoID</th>
 
 <th>Status</th>
@@ -71,7 +60,7 @@
 </thead>
  <tbody>
         {{#each promotions}} 
-        <tr> 
+        <tr>
             <td>{{promoID}}</td> 
             <td>{{status}}</td> 
             <td>{{discountSize}}</td> 
