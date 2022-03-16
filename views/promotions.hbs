@@ -6,7 +6,16 @@
     information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
     is being left out leave the text or selection blank.
 </p>
-
+<p><strong>To Create a new Promotion-ID please provide the following information:</strong>
+<ul><li>PromoID</li>
+<li>Status</li>
+<li>Discount-Size</li>
+</ul>
+</p>
+<p><strong>To update the exising Promotion-ID provide:</strong></p>
+<p>Please Select the Update button and provided the correct fieldset with updated information<p>
+<p><strong>To Delete:</strong></p>
+<p><li>Please select the Delete button enter the promoID number and cliked Yes to provide a promoID</p>
 <form>
     <label>What action would you like to take in the Promotions table: </label>
     <select name="crud" id="crud">
@@ -61,9 +70,9 @@
  <tbody>
         {{#each promotions}} 
         <tr>
-            <td>{{promoID}}</td> 
-            <td>{{status}}</td> 
-            <td>{{discountSize}}</td> 
+            <td>{{this.promoID}}</td> 
+            <td>{{this.status}}</td> 
+            <td>{{this.discountSize}}</td> 
         </tr> 
         {{/each}} 
     </tbody> 

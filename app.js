@@ -17,7 +17,7 @@ app.engine('.hbs', engine({extname: ".hbs"}));  // Tell express to use the handl
 app.set('view engine', '.hbs');                
 
 
-function getAndRenderCustomers(req, res)        // The get
+function getAndRenderCustomers(req, res) // The getandRenderCustomer will render the Customer Page and will display the Customer Data
 {
     db.pool.query("SELECT * FROM Customers;", function(error, results, fields) {
         if(error) {
@@ -37,7 +37,7 @@ function getAndRenderCustomers(req, res)        // The get
 }
 
 // update Customer
-function updateCustomer(req, res)
+function updateCustomer(req, res) // The updateCustomer Function will Change the created or exisiting  data for the Customer Table 
 {
     var columnUpdates = []
     if(req.query['include_email'] && req.query.include_email == 'yes')
@@ -69,7 +69,7 @@ function updateCustomer(req, res)
         columnUpdates.push(`lastPurchaseID = ${req.query['lastPurchaseID']}`);
     }
 
-    if (columnUpdates.length > 0)
+    if (columnUpdates.length > 0)// If the columnUpdate length is greater than zero then do a update command
     {
         var sql = "UPDATE Customers SET " + columnUpdates.join(", ") + ` WHERE customerID = ${req.query['customerID']};`
 
@@ -94,8 +94,8 @@ function updateCustomer(req, res)
     }
 }
 
-// update orderContent
-function updateorderContent(req, res)
+
+function updateorderContent(req, res)//  The updateorderContent Function will Change the created or exisiting  data for the orderContent Table 
 {
     var columnUpdates = []
     if(req.query['include_oid'] && req.query.include_oid == 'yes')
@@ -111,7 +111,7 @@ function updateorderContent(req, res)
         columnUpdates.push(`quantityOrdered = ${req.query['quantityOrdered']}`);
     }
 
-    if (columnUpdates.length > 0)
+    if (columnUpdates.length > 0) // If the columnUpdate length is greater than zero then do a update command
     {
         var sql = "UPDATE OrderContents SET " + columnUpdates.join(", ") + ` WHERE contentID = ${req.query['cid']};`
 
@@ -135,8 +135,8 @@ function updateorderContent(req, res)
         getAndRenderorderContents(req, res);
     }
 }
-// update products
-function updateProducts(req, res)
+
+function updateProducts(req, res) //  The updateProducts Function will Change the created or exisiting  data for the Products Table 
 {
     var columnUpdates = []
     if(req.query['include_pid'] && req.query.include_pid == 'yes')
@@ -160,7 +160,7 @@ function updateProducts(req, res)
         columnUpdates.push(`quantityInStock = ${req.query['quantityInStock']}`);
     }
 
-    if (columnUpdates.length > 0)
+    if (columnUpdates.length > 0)// If the columnUpdate length is greater than zero then do a update command
     {
         var sql = "UPDATE PlantsUnlimitedProducts SET " + columnUpdates.join(", ") + ` WHERE productID = ${req.query['prid']};`
 
@@ -184,8 +184,8 @@ function updateProducts(req, res)
         getAndRenderproducts(req, res);
     }
 }
-// update promotions 
-function updatePromotions(req, res)
+
+function updatePromotions(req, res)  //The updatePromotions Function will Change the created or exisiting  data for the Promotions table  
 {
     var columnUpdates = []
     if(req.query['status'] && (req.query.status == '0' || req.query.status == '1'))
@@ -197,7 +197,7 @@ function updatePromotions(req, res)
         columnUpdates.push(`discountSize = ${req.query['discountSize']}`);
     }
 
-    if (columnUpdates.length > 0)
+    if (columnUpdates.length > 0)// If the columnUpdate length is greater than zero then do a update command
     {
         var sql = "UPDATE Promotions SET " + columnUpdates.join(", ") + ` WHERE promoID = ${req.query['promoID']};`
 
@@ -222,7 +222,7 @@ function updatePromotions(req, res)
     }
 }
 
-function updateSales(req, res)
+function updateSales(req, res) //The updateSales Function will Change the created or exisiting  data for the Sales table  
 {
     var columnUpdates = []
     if(req.query['include_cid'] && req.query.include_cid == 'yes')
@@ -246,7 +246,7 @@ function updateSales(req, res)
         columnUpdates.push(`totalPrice = ${req.query['totalPrice']}`);
     }
 
-    if (columnUpdates.length > 0)
+    if (columnUpdates.length > 0)// If the columnUpdate length is greater than zero then do a update command
     {
         var sql = "UPDATE Sales SET " + columnUpdates.join(", ") + ` WHERE orderID = ${req.query['orderID']};`
 
@@ -271,7 +271,7 @@ function updateSales(req, res)
     }
 }
 
-function getAndRenderorderContents(req, res)
+function getAndRenderorderContents(req, res)// The getAndRenderorderContents will render the orderContents Page and will display the OrderContents Data
 {
     db.pool.query("SELECT * FROM OrderContents;", function(error, results, fields) {
         if(error) {
@@ -289,7 +289,7 @@ function getAndRenderorderContents(req, res)
         }
     });
 }
-function getAndRenderproducts(req, res)
+function getAndRenderproducts(req, res) // The getAndRenderproducts will render the product Page and will display the PlantsUnlimitedProducts Data
 {
     db.pool.query("SELECT * FROM PlantsUnlimitedProducts;", function(error, results, fields) {
         if(error) {
@@ -307,7 +307,7 @@ function getAndRenderproducts(req, res)
         }
     });
 }
-function getAndRenderpromotions(req, res)
+function getAndRenderpromotions(req, res)// The getAndRenderpromotions will render the promotions Page and will display the Promotions Data
 {
     db.pool.query("SELECT * FROM Promotions;", function(error, results, fields) {
         if(error) {
@@ -325,7 +325,8 @@ function getAndRenderpromotions(req, res)
         }
     });
 }
-function getAndRendersales(req, res)
+function getAndRendersales(req, res)//The getAndRenderSales will render the sales Page and will display the sales  Data
+
 {
     db.pool.query("SELECT * FROM Sales;", function(error, results, fields) {
         if(error) {
@@ -564,13 +565,13 @@ app.get('/products', function(req, res)
         getAndRenderproducts(req, res);
     }
 })
-app.get('/orderContents', function(req, res)
+app.get('/orderContents', function(req, res) // This get function will utilize the Create operation by making one or more data in the orderContent Page 
 {
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
         var sqlWithId = "INSERT INTO `OrderContents`(`contentID`, `orderID`, `productID`,'quantityOrderd') VALUES (?,?,?,?)";
-        var sqlWithId = "INSERT INTO `OrderContents`(`contentID`, `orderID`, `productID`,'quantityOrderd') VALUES (?,?,?,?)";
+        var sqlWithId = "INSERT INTO `OrderContents`(`orderID`, `productID`,'quantityOrderd') VALUES (?,?,?)";
 
         var sql = null
         var inserts = null;
@@ -579,7 +580,7 @@ app.get('/orderContents', function(req, res)
             inserts = [req.query['contentID'], req.query['orderID'],req.query['productID'],res.query['quantityOrdered']];
         } else {
             sql = sqlWithoutId;
-            inserts =[req.query['contentID'], req.query['orderID'],req.query['productID'],res.query['quantityOrdered']];
+            inserts =[req.query['orderID'],req.query['productID'],res.query['quantityOrdered']];
         }
 
         db.pool.query(sql, inserts, function(error, results, fields) {
