@@ -586,8 +586,8 @@ app.get('/orderContents', function(req, res) // This get function will utilize t
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
-        var sqlWithId = "INSERT INTO `OrderContents`(`contentID`, `orderID`, `productID`,'quantityOrdered') VALUES (?,?,?,?)";
-        var sqlWithoutId = "INSERT INTO `OrderContents`(`orderID`, `productID`,'quantityOrdered') VALUES (?,?,?)";
+        var sqlWithId = "INSERT INTO `OrderContents`(`contentID`, `orderID`, `productID`,`quantityOrdered`) VALUES (?,?,?,?)";
+        var sqlWithoutId = "INSERT INTO `OrderContents`(`orderID`, `productID`,`quantityOrdered`) VALUES (?,?,?)";
 
         var sql = null
         var inserts = null;
