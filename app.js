@@ -148,15 +148,15 @@ function updateorderContent(req, res)
 function updateProducts(req, res)
 {
     var columnUpdates = []
-    if(req.query['include_promoID'] && req.query.include_promoID == 'yes')
+    if(req.query['include_pid'] && req.query.include_pid == 'yes')
     {
-        columnUpdates.push(`promoID = ${req.query['promoID']}`);
+        columnUpdates.push(`promoID = ${req.query['pid']}`);
     }
-    if(req.query['include_productType'] && req.query.include_productType == 'yes')
+    if(req.query['type'] != 'unset')
     {
-        columnUpdates.push(`productType = "${req.query['productType']}"`);
+        columnUpdates.push(`productType = "${req.query['type']}"`);
     }
-    if(req.query['include_description'] && req.query.description == 'yes')
+    if(req.query['description'])
     {
         columnUpdates.push(`description = "${req.query['description']}"`);
     }
@@ -171,7 +171,7 @@ function updateProducts(req, res)
 
     if (columnUpdates.length > 0)
     {
-        var sql = "UPDATE PlantsUnlimitedProducts SET " + columnUpdates.join(", ") + ` WHERE productID = ${req.query['productID']};`
+        var sql = "UPDATE PlantsUnlimitedProducts SET " + columnUpdates.join(", ") + ` WHERE productID = ${req.query['prid']};`
 
         console.log(sql);
     
@@ -414,9 +414,10 @@ app.get('/customers', function(req, res)
         }
     } else if (req.query["crud"] && req.query.crud == 'delete') {
         // Delete using email as the identifier
-        let sql = `Delete From Customers Where email = ${req.query.email};`
+        let sql = `Delete From Customers Where email = "${req.query.email}";`
         console.log(sql)
-        db.pool.query(sql)
+        // db.pool.query(sql)
+        db.pool.query(sql);
         getAndRenderCustomers(req, res);
     } else {
         getAndRenderCustomers(req, res);
@@ -429,16 +430,16 @@ app.get('/promotions', function(req, res)
 
     if (req.query["crud"] && req.query.crud == 'create') {
         var sqlWithId = "INSERT INTO `Promotions`(`promoID`, `status`, `discountSize`) VALUES (?,?,?)";
-        var sqlWithoutId = "INSERT INTO `Customers`(`promoID`, `status`, `discountSize`) VALUES (?,?,?)";
+        var sqlWithoutId = "INSERT INTO `Promotions`(`status`, `discountSize`) VALUES (?,?)";
 
         var sql = null
         var inserts = null;
         if (req.query['include_cid'] && req.query.include_cid == 'yes') {
             sql = sqlWithId;
-            inserts = [req.query['promoID'], req.query['status'],[discountSize]];
+            inserts = [req.query['promoID'], req.query['status'],req.query['discountSize']];
         } else {
             sql = sqlWithoutId;
-            inserts = [req.query['promoID'], req.query['status'],[discountSize]];
+            inserts = [req.query['status'],req.query['discountSize']];
         }
 
         db.pool.query(sql, inserts, function(error, results, fields) {
@@ -466,7 +467,7 @@ app.get('/promotions', function(req, res)
         // Delete using promoId as the identifier
         let sql = `Delete From Promotions Where promoID = ${req.query.promoID};`
         console.log(sql)
-        db.pool.query(sql)
+        db.pool.query(sql);
         getAndRenderpromotions(req, res);
     } else {
         getAndRenderpromotions(req, res);
@@ -478,17 +479,17 @@ app.get('/sales', function(req, res)
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
-        var sqlWithId = "INSERT INTO `Sales`(`orderID`, `customerID`, `saleDate`,''orderFulfilled','orderFulfilledDate','totalPrice') VALUES (?,?,?,?,?,?)";
-        var sqlWithId = "INSERT INTO `Sales`(`orderID`, `customerID`, `saleDate`,''orderFulfilled','orderFulfilledDate','totalPrice') VALUES (?,?,?,?,?,?)";
+        var sqlWithId = "INSERT INTO `Sales`(`orderID`, `customerID`, `saleDate`,`orderFulfilled`,`orderFulfilledDate`,`totalPrice`) VALUES (?,?,?,?,?,?)";
+        var sqlWithoutId = "INSERT INTO `Sales`(`customerID`, `saleDate`,`orderFulfilled`,`orderFulfilledDate`,`totalPrice`) VALUES (?,?,?,?,?)";
 
         var sql = null
         var inserts = null;
-        if (req.query['include_cid'] && req.query.include_cid == 'yes') {
+        if (req.query['include_0id'] && req.query.include_0id == 'yes') {
             sql = sqlWithId;
-            inserts = [req.query['orderID'], req.query['customerID'],req.query['saleDate'],res.query['orderFulfilled'],res.query['orderFulfilledDate'],res.quer['totalPrice']];
+            inserts = [req.query['orderID'], req.query['customerID'],req.query['saleDate'],req.query['orderFulfilled'],req.query['orderFulfilledDate'],req.query['totalPrice']];
         } else {
             sql = sqlWithoutId;
-            inserts = [req.query['orderID'], req.query['customerID'],req.query['saleDate'],res.query['orderFulfilled'],res.query['orderFulfilledDate'],res.quer['totalPrice']];
+            inserts = [req.query['customerID'],req.query['saleDate'],req.query['orderFulfilled'],req.query['orderFulfilledDate'],req.query['totalPrice']];
         }
 
         db.pool.query(sql, inserts, function(error, results, fields) {
@@ -514,9 +515,9 @@ app.get('/sales', function(req, res)
         }
     } else if (req.query["crud"] && req.query.crud == 'delete') {
         // Delete using orderId as the identifier
-        let sql = `Delete From Sales Where orderID= ${req.query.orderID};`
-        console.log(sql)
-        db.pool.query(sql)
+        let sql = `Delete From Sales Where orderID = ${req.query.orderID};`
+        console.log(sql);
+        db.pool.query(sql);
         getAndRendersales(req, res);
     } else {
         getAndRendersales(req, res);
@@ -528,17 +529,17 @@ app.get('/products', function(req, res)
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
-        var sqlWithId = "INSERT INTO `PlantsUnlimitedProducts`(`productID`, `promoID`, `productType`,''description','price','quantityInStock') VALUES (?,?,?,?,?,?)";
-        var sqlWithId = "INSERT INTO `PlantsUnlimitedProducts`(`productID`, `promoID`, `productType`,''description','price','quantityInStock') VALUES (?,?,?,?,?,?)";
+        var sqlWithId = "INSERT INTO `PlantsUnlimitedProducts`(`productID`, `promoID`, `productType`,`description`,`price`,`quantityInStock`) VALUES (?,?,?,?,?,?)";
+        var sqlWithoutId = "INSERT INTO `PlantsUnlimitedProducts`(`promoID`, `productType`,`description`,`price`,`quantityInStock`) VALUES (?,?,?,?,?)";
 
         var sql = null
         var inserts = null;
-        if (req.query['include_cid'] && req.query.include_cid == 'yes') {
+        if (req.query['include_prid'] && req.query.include_prid == 'yes') {
             sql = sqlWithId;
-            inserts = [req.query['productID'], req.query['promoID'],req.query['productType'],res.query['description'],res.query['price'],res.quer['quantityInStock']];
+            inserts = [req.query['prid'], req.query['pid'],req.query['type'],req.query['description'],req.query['price'],req.query['quantityInStock']];
         } else {
             sql = sqlWithoutId;
-            inserts =[req.query['productID'], req.query['promoID'],req.query['productType'],res.query['description'],res.query['price'],res.quer['quantityInStock']];
+            inserts =[req.query['pid'],req.query['type'],req.query['description'],req.query['price'],req.query['quantityInStock']];
         }
 
         db.pool.query(sql, inserts, function(error, results, fields) {
@@ -550,7 +551,7 @@ app.get('/products', function(req, res)
             }
         });
     } else if (req.query["crud"] && req.query.crud == 'update') {
-        var productID = req.query['productID'];
+        var productID = req.query['prid'];
         if (productID)
         {
             updateProducts(req, res);
@@ -564,9 +565,9 @@ app.get('/products', function(req, res)
         }
     } else if (req.query["crud"] && req.query.crud == 'delete') {
         // Delete using productType as the identifier
-        let sql = `Delete From PlantsUnlimitedProducts Where productType = ${req.query.type};`
+        let sql = `Delete From PlantsUnlimitedProducts Where productType = "${req.query.type}";`
         console.log(sql)
-        db.pool.query(sql)
+        db.pool.query(sql);
         getAndRenderproducts(req, res);
     } else {
         getAndRenderproducts(req, res);
