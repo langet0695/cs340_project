@@ -9,24 +9,15 @@ PORT        = 3050;
 
 var db = require('./DataBase/db-connector');         // Set a port number at the top so it's easy to change in the future
 
-/*
-console.log(db)
 
-db.pool.query("SELECT 'Hello, World!'", function(error, results, fields) {
-    if(error){
-        console.error(error);
-    }
-    console.log(fields);
-    console.log(results);
-});
-*/
 
-const { engine } = require('express-handlebars');
-var exphbs = require('express-handlebars');     // Import express-handlebars
-app.engine('.hbs', engine({extname: ".hbs"}));  // Create an instance of the handlebars engine to process templates
-app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
+const { engine } = require('express-handlebars'); // Import express-handlebars
+var exphbs = require('express-handlebars');     // Create an instance of the handlebars engine to process templates
+app.engine('.hbs', engine({extname: ".hbs"}));  // Tell express to use the handlebars engine whenever it encounters a *.hbs file
+app.set('view engine', '.hbs');                
 
-function getAndRenderCustomers(req, res)
+
+function getAndRenderCustomers(req, res)        // The get
 {
     db.pool.query("SELECT * FROM Customers;", function(error, results, fields) {
         if(error) {
