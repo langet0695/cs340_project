@@ -18,8 +18,24 @@ app.set('view engine', '.hbs');
 
 
 function getAndRenderCustomers(req, res) // The getandRenderCustomer will render the Customer Page and will display the Customer Data
-{
-    db.pool.query("SELECT * FROM Customers;", function(error, results, fields) {
+{   
+    // Enable read functionality based on the parameters dynamically set by the user by building a custom where clause.
+    let sql = "SELECT * FROM Customers "
+    let sql_where = "WHERE "
+    if (req.query.crud == 'read' && req.query.include_cid == 'yes') {sql_where += `customerID = "${req.query.customerID}" AND `}
+    if (req.query.crud == 'read' && req.query.include_email == 'yes') {sql_where += `email = "${req.query.email}" AND `}
+    if (req.query.crud == 'read' && req.query.include_street == 'yes') {sql_where += `street = "${req.query.street}" AND `}
+    if (req.query.crud == 'read' && req.query.include_city == 'yes') {sql_where += `city = "${req.query.city}" AND `}
+    if (req.query.crud == 'read' && req.query.include_zip == 'yes') {sql_where += `zip = "${req.query.zip}" AND `}
+    if (req.query.crud == 'read' && req.query.lastPurchaseDate.length >= 1) {sql_where += `lastPurchaseDate = "${req.query.lastPurchaseDate}" AND `}
+    if (req.query.crud == 'read' && req.query.lastPurchaseID.length >= 1) {sql_where += `lastPurchaseID = "${req.query.lastPurchaseID}" AND `}
+    let addition = ''
+    if (sql_where.length > 6){	
+        addition = sql_where.substring(0, sql_where.length - 5);
+    }
+    sql = sql + addition + ';'
+    
+    db.pool.query(sql, function(error, results, fields) {
         if(error) {
             res.write(JSON.stringify(error));
             res.end();
@@ -570,17 +586,17 @@ app.get('/orderContents', function(req, res) // This get function will utilize t
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
-        var sqlWithId = "INSERT INTO `OrderContents`(`contentID`, `orderID`, `productID`,'quantityOrderd') VALUES (?,?,?,?)";
-        var sqlWithId = "INSERT INTO `OrderContents`(`orderID`, `productID`,'quantityOrderd') VALUES (?,?,?)";
+        var sqlWithId = "INSERT INTO `OrderContents`(`contentID`, `orderID`, `productID`,'quantityOrdered') VALUES (?,?,?,?)";
+        var sqlWithoutId = "INSERT INTO `OrderContents`(`orderID`, `productID`,'quantityOrdered') VALUES (?,?,?)";
 
         var sql = null
         var inserts = null;
         if (req.query['include_cid'] && req.query.include_cid == 'yes') {
             sql = sqlWithId;
-            inserts = [req.query['contentID'], req.query['orderID'],req.query['productID'],res.query['quantityOrdered']];
+            inserts = [req.query['cid'], req.query['oid'],req.query['pid'],req.query['quantityOrdered']];
         } else {
             sql = sqlWithoutId;
-            inserts =[req.query['orderID'],req.query['productID'],res.query['quantityOrdered']];
+            inserts =[req.query['oid'],req.query['pid'],req.query['quantityOrdered']];
         }
 
         db.pool.query(sql, inserts, function(error, results, fields) {
