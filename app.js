@@ -335,7 +335,7 @@ function getAndRenderpromotions(req, res)// The getAndRenderpromotions will rend
                 d.promotions.push(result);
             });
     
-            res.render('Promotions', d);
+            res.render('promotions', d);
         }
     });
 }
