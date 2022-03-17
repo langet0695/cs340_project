@@ -1,23 +1,46 @@
 <!-- customers.hbs -->
 <h1>Plants Unlimited: <b style="color:Orange">OrderContents</b></h1>
-<li><a href="/">Homepage</a></li>
+<a href="/">Homepage</a>
 <p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Products table for Plants Unlimited. 
     When executing CRUD functions we recommend providing as much detail as possible, though if some specific product 
     information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
     is being left out leave the text or selection blank.
 </p>
-<p><strong>To Create a new Order please provide the following information:</strong>
-<ul><li>ContentID</li>
-<li>OrderID</li>
-<li>ProductID</li>
-<li>Quantityordered</li>
-</ul>
+
+<p><strong>To Create a new Order Content please follow the instructions below:</strong>
+    <ol>
+        <li>Select "Create" as the action you would like to take.</li>
+        <li>Provide the following information where applicable. A "*" represents the field is required to create a new Order Content
+            <ul>
+                <li>ContentID*</li>
+                <li>OrderID*</li>
+                <li>ProductID*</li>
+                <li>Quantityordered</li>
+            </ul>
+        </li>
+        <li>
+            "Submit" the form once you've provided all of the relevant Order Content information.
+        </li>
+    </ol>
 </p>
-<p><strong>To update the exising Customer provide:</strong></p>
-<p>Please Select the Update button and provided the correct fieldset with updated information<p>
-</ul>
-<p><strong>To Delete:</strong></p>
-<p><li>Please select the Delete button enter the contentID number and cliked Yes to provide a contentID</p>
+<p><strong>To update an exising OrderContents row use the following instructions:</strong></p>
+<p>
+    <ol>
+        <li>Please Select the "Update" action from the dropdown</li>
+        <li>Input the ID of the contentID being updated</li>
+        <li>Provide the fieldset with updated information</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
+<p><strong>To Delete review the following:</strong></p>
+<p>
+    <ol>
+        <li>Select "Delete" as the action you would like to take</li>
+        <li>Select that "Yes" to providing a ContentID and provide the ID of the content you wish to remove</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
+
 <form>
     <label>What action would you like to take in the Order Conetnts table: </label>
     <select name="crud" id="crud">

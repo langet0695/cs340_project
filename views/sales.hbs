@@ -1,25 +1,49 @@
 <!-- customers.hbs -->
 <h1>Plants Unlimited: <b style="color:green">Sales</b></h1>
-<li><a href="/">Homepage</a></li>
+<a href="/">Homepage</a>
 <p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Sales table for Plants Unlimited. 
     When executing CRUD functions we recommend providing as much detail as possible, though if some specific sales 
     information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
     is being left out leave the text or selection blank.
 </p>
-<p><strong>To Create a new sale please  provide the following information:</strong>
-<ul><li>OrderID</li>
-<li>CustomerID</li>
-<li>saleDate</li>
-<li>OrderFulFilled</li>
-<li>OrderFulFilledDate</li>
-<li>Date</li>
-<li>totalPrice</li>
-</ul>
+
+<p><strong>To Create a new Sale please follow the instructions below:</strong>
+    <ol>
+        <li>Select "Create" as the action you would like to take.</li>
+        <li>Provide the following information where applicable. A "*" represents the field is required to create a new sale
+            <ul>
+                <li>OrderID</li>
+                <li>CustomerID*</li>
+                <li>saleDate*</li>
+                <li>OrderFulFilled*</li>
+                <li>OrderFulFilledDate</li>
+                <li>Date*</li>
+                <li>totalPrice*</li>
+            </ul>
+        </li>
+        <li>
+            "Submit" the form once you've provided all of the relevant sale information.
+        </li>
+    </ol>
 </p>
-<p><strong>To update the exising Sale provide:</strong></p>
-<p>Please Select the Update button and provided the correct fieldset with updated information<p>
-<p><strong>To Delete:</strong></p>
-<p><li>Please Select the Delete button cliked Yes to provide an OrderID and provide the OrderID number</p>
+<p><strong>To update an exising Sale use the following instructions:</strong></p>
+<p>
+    <ol>
+        <li>Please Select the "Update" action from the dropdown</li>
+        <li>Input the OrderID of the sale being updated</li>
+        <li>Provide the fieldset with updated information</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
+<p><strong>To Delete review the following:</strong></p>
+<p>
+    <ol>
+        <li>Select "Delete" as the action you would like to take</li>
+        <li>Select that "Yes" to providing a OrderID and provide the OrderID of the sale you wish to remove</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
+
 <form>
     <label>What action would you like to take in the Sales table: </label>
     <select name="crud" id="crud">

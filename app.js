@@ -1,18 +1,14 @@
-// App.js
+// Authors: Travis Lange & Dylan Meithof
+// Description: This file contains the code function as the controller between the frontend of the Plants Unlimited admin ui and the backend SQL database.
 
-/*
-    SETUP
-*/
+// Setup
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 3050;        
+PORT        = 3050;                 // Set to run on an open port
 
-var db = require('./DataBase/db-connector');         // Set a port number at the top so it's easy to change in the future
-
-
-
-const { engine } = require('express-handlebars'); // Import express-handlebars
-var exphbs = require('express-handlebars');     // Create an instance of the handlebars engine to process templates
+var db = require('./DataBase/db-connector');      
+const { engine } = require('express-handlebars'); 
+var exphbs = require('express-handlebars');     
 app.engine('.hbs', engine({extname: ".hbs"}));  // Tell express to use the handlebars engine whenever it encounters a *.hbs file
 app.set('view engine', '.hbs');                
 
@@ -35,6 +31,7 @@ function getAndRenderCustomers(req, res) // The getandRenderCustomer will render
     }
     sql = sql + addition + ';'
     
+    // Query the Customer table and render the resulting data in the ui
     db.pool.query(sql, function(error, results, fields) {
         if(error) {
             res.write(JSON.stringify(error));
@@ -52,8 +49,9 @@ function getAndRenderCustomers(req, res) // The getandRenderCustomer will render
     });
 }
 
-// update Customer
-function updateCustomer(req, res) // The updateCustomer Function will Change the created or exisiting  data for the Customer Table 
+// Enaple the update Customer functionality
+function updateCustomer(req, res) 
+// The updateCustomer function will change the created or exisiting  data for the Customer Table 
 {
     var columnUpdates = []
     if(req.query['include_email'] && req.query.include_email == 'yes')
@@ -361,10 +359,8 @@ function getAndRendersales(req, res)//The getAndRenderSales will render the sale
     });
 }
 
-// 
-/*
-    ROUTES
-*/
+// This section of code manages routing of requests by page the user is on.
+// This routing covers all 5 entity pages and one index page to link all the pages together.
 app.get('/', function(req, res)
     {
         res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
@@ -374,8 +370,8 @@ app.get('/customers', function(req, res)
 {
     console.log(req.query);
 
-    if (req.query["crud"] && req.query.crud == 'create') {
-
+    if (req.query["crud"] && req.query.crud == 'create') { 
+    // If create has been set by the user then decide what identifiers we will add
         var kvps = [];
         if (req.query['include_cid'] && req.query.include_cid == 'yes') {
             kvps.push({"customerID" : req.query['customerID']});
@@ -383,9 +379,7 @@ app.get('/customers', function(req, res)
         if (req.query['include_email'] && req.query.include_email == 'yes') {
             kvps.push({"customerID" : req.query['customerID']});
         }
-
-        var insertSql = "INSERT INTO `Customers` ("
-
+        // In the following code we configure the sql depending on if the primary key has been added in the users request
         var sqlWithId = "INSERT INTO `Customers`(`customerID`, `email`, `street`, `city`, `zip`, `status`, `lastPurchaseDate`, `lastPurchaseID`) VALUES (?,?,?,?,?,?,?,?)";
         var sqlWithoutId = "INSERT INTO `Customers`(`email`, `street`, `city`, `zip`, `status`, `lastPurchaseDate`, `lastPurchaseID`) VALUES (?,?,?,?,?,?,?)";
 
@@ -398,7 +392,7 @@ app.get('/customers', function(req, res)
             sql = sqlWithoutId;
             inserts = [req.query['email'], req.query['street'], req.query['city'], req.query['zip'], req.query['status'], req.query['lastPurchaseDate'], req.query['lastPurchaseID']];
         }
-
+        // Once our query is built insert the data into our database
         db.pool.query(sql, inserts, function(error, results, fields) {
             if(error) {
                 res.write(JSON.stringify(error));
@@ -424,7 +418,6 @@ app.get('/customers', function(req, res)
         // Delete using email as the identifier
         let sql = `Delete From Customers Where email = "${req.query.email}";`
         console.log(sql)
-        // db.pool.query(sql)
         db.pool.query(sql);
         getAndRenderCustomers(req, res);
     } else {
@@ -437,6 +430,7 @@ app.get('/promotions', function(req, res)
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
+        // In the following code we configure the sql depending on if the primary key has been added in the users request
         var sqlWithId = "INSERT INTO `Promotions`(`promoID`, `status`, `discountSize`) VALUES (?,?,?)";
         var sqlWithoutId = "INSERT INTO `Promotions`(`status`, `discountSize`) VALUES (?,?)";
 
@@ -449,7 +443,7 @@ app.get('/promotions', function(req, res)
             sql = sqlWithoutId;
             inserts = [req.query['status'],req.query['discountSize']];
         }
-
+        // Once our query is built insert the data into our database
         db.pool.query(sql, inserts, function(error, results, fields) {
             if(error) {
                 res.write(JSON.stringify(error));
@@ -487,6 +481,7 @@ app.get('/sales', function(req, res)
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
+        // In the following code we configure the sql depending on if the primary key has been added in the users request
         var sqlWithId = "INSERT INTO `Sales`(`orderID`, `customerID`, `saleDate`,`orderFulfilled`,`orderFulfilledDate`,`totalPrice`) VALUES (?,?,?,?,?,?)";
         var sqlWithoutId = "INSERT INTO `Sales`(`customerID`, `saleDate`,`orderFulfilled`,`orderFulfilledDate`,`totalPrice`) VALUES (?,?,?,?,?)";
 
@@ -499,7 +494,7 @@ app.get('/sales', function(req, res)
             sql = sqlWithoutId;
             inserts = [req.query['customerID'],req.query['saleDate'],req.query['orderFulfilled'],req.query['orderFulfilledDate'],req.query['totalPrice']];
         }
-
+        // Once our query is built insert the data into our database
         db.pool.query(sql, inserts, function(error, results, fields) {
             if(error) {
                 res.write(JSON.stringify(error));
@@ -537,6 +532,7 @@ app.get('/products', function(req, res)
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
+        // In the following code we configure the sql depending on if the primary key has been added in the users request
         var sqlWithId = "INSERT INTO `PlantsUnlimitedProducts`(`productID`, `promoID`, `productType`,`description`,`price`,`quantityInStock`) VALUES (?,?,?,?,?,?)";
         var sqlWithoutId = "INSERT INTO `PlantsUnlimitedProducts`(`promoID`, `productType`,`description`,`price`,`quantityInStock`) VALUES (?,?,?,?,?)";
 
@@ -549,7 +545,7 @@ app.get('/products', function(req, res)
             sql = sqlWithoutId;
             inserts =[req.query['pid'],req.query['type'],req.query['description'],req.query['price'],req.query['quantityInStock']];
         }
-
+        // Once our query is built insert the data into our database
         db.pool.query(sql, inserts, function(error, results, fields) {
             if(error) {
                 res.write(JSON.stringify(error));
@@ -586,6 +582,7 @@ app.get('/orderContents', function(req, res) // This get function will utilize t
     console.log(req.query);
 
     if (req.query["crud"] && req.query.crud == 'create') {
+        // In the following code we configure the sql depending on if the primary key has been added in the users request
         var sqlWithId = "INSERT INTO `OrderContents`(`contentID`, `orderID`, `productID`,`quantityOrdered`) VALUES (?,?,?,?)";
         var sqlWithoutId = "INSERT INTO `OrderContents`(`orderID`, `productID`,`quantityOrdered`) VALUES (?,?,?)";
 
@@ -598,7 +595,7 @@ app.get('/orderContents', function(req, res) // This get function will utilize t
             sql = sqlWithoutId;
             inserts =[req.query['oid'],req.query['pid'],req.query['quantityOrdered']];
         }
-
+        // Once our query is built insert the data into our database
         db.pool.query(sql, inserts, function(error, results, fields) {
             if(error) {
                 res.write(JSON.stringify(error));
@@ -624,16 +621,14 @@ app.get('/orderContents', function(req, res) // This get function will utilize t
         // Delete using cid as the identifier
         let sql = `Delete From OrderContents Where contentID = ${req.query.cid};`
         console.log(sql)
-        db.pool.query(sql)
+        db.pool.query(sql);
         getAndRenderorderContents(req, res);
     } else {
         getAndRenderorderContents(req, res);
     }
 })
 
-/*
-    LISTENER
-*/
-app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
+// Set the app to listen on the port defined at the top of this file
+app.listen(PORT, function(){          
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });

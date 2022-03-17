@@ -1,29 +1,58 @@
 <!-- customers.hbs -->
 <h1>Plants Unlimited: <b style="color:blue">Customers</b></h1>
-<li><a href="/">Homepage</a></li>
+<a href="/">Homepage</a>
 <p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Customers table for Plants Unlimited. 
     When executing CRUD functions we recommend providing as much detail as possible, though if some specific customer 
     information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
     is being left out leave the text or selection blank.
 </p>
 </p>
-<p><strong>To Create a new Customer please provide the following information:</strong>
-<ul><li>CustomerID</li>
-<li>Email</li>
-<li>Street</li>
-<li>City</li>
-<li>Zip</li>
-<li>Status</li>
-<li>lastPurchaseDate</li>
-<li>lastPurchaseID</li>
-</ul>
+<p><strong>To Create a new Customer please follow the instructions below:</strong>
+    <ol>
+        <li>Select "Create" as the action you would like to take.</li>
+        <li>Provide the following information where applicable. A "*" represents the field is required to create a new customer
+            <ul>
+                <li>CustomerID</li>
+                <li>Email*</li>
+                <li>Street</li>
+                <li>City</li>
+                <li>Zip</li>
+                <li>Status</li>
+                <li>lastPurchaseDate</li>
+                <li>lastPurchaseID</li>
+            </ul>
+        </li>
+        <li>
+            "Submit" the form once you've provided all of the relevant customer information.
+        </li>
+    </ol>
 </p>
-<p><strong>To update the exising Customer provide:</strong></p>
-<p>Please Select the Update button and provided the correct fieldset with updated information<p>
-</ul>
-<p><strong>To Delete:</strong></p>
-<p><li>Please enter the promoID number and cliked Yes to provide a promoID</p>
-<form>
+<p><strong>To Dynamically filter and read from the customer table use the following instructions </strong></p>
+<p>
+    <ol>
+        <li>Select "Read" as the action to be taken from the dropdown</li>
+        <li>Provide the parameters you wish to search with in the fieldset as well as if you are providing a value</li>
+        <li>"Submit the form and review the resulting data in the table below</li>
+    </ol>
+</p>
+<p><strong>To update the exising Customer use the following instructions:</strong></p>
+<p>
+    <ol>
+        <li>Please Select the "Update" action from the dropdown</li>
+        <li>Input the ID of the customer being updated</li>
+        <li>Provide the fieldset with updated information</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
+<p><strong>To Delete review the following:</strong></p>
+<p>
+    <ol>
+        <li>Select "Delete" as the action you would like to take</li>
+        <li>Select that "Yes" to providing an email and provide the email of the individual you wish to remove</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
+
 <form>
     <label>What action would you like to take in the Customers table: </label>
     <select name="crud" id="crud">

@@ -1,21 +1,43 @@
 <!-- customers.hbs -->
 <h1>Plants Unlimited: <b style="color:red">promotions</b></h1>
-<li><a href="/">Homepage</a></li>
+<a href="/">Homepage</a>
 <p><b>Description: </b> This web page will enable an admin user to execute CRUD functions on the Promotions table for Plants Unlimited. 
     When executing CRUD functions we recommend providing as much detail as possible, though if some specific promotion 
     information isn't known it can be left out. Use the radio buttons to indicate if a field is being input and if it 
     is being left out leave the text or selection blank.
 </p>
-<p><strong>To Create a new Promotion-ID please provide the following information:</strong>
-<ul><li>PromoID</li>
-<li>Status</li>
-<li>Discount-Size</li>
-</ul>
+<p><strong>To Create a new Promotion please follow the instructions below:</strong>
+    <ol>
+        <li>Select "Create" as the action you would like to take.</li>
+        <li>Provide the following information where applicable. A "*" represents the field is required to create a new promotion
+            <ul>
+                <li>PromoID</li>
+                <li>Status*</li>
+                <li>Discount Size*</li>
+            </ul>
+        </li>
+        <li>
+            "Submit" the form once you've provided all of the relevant promotion information.
+        </li>
+    </ol>
 </p>
-<p><strong>To update the exising Promotion-ID provide:</strong></p>
-<p>Please Select the Update button and provided the correct fieldset with updated information<p>
-<p><strong>To Delete:</strong></p>
-<p><li>Please select the Delete button enter the promoID number and cliked Yes to provide a promoID</p>
+<p><strong>To update an exising Promotion use the following instructions:</strong></p>
+<p>
+    <ol>
+        <li>Please Select the "Update" action from the dropdown</li>
+        <li>Input the ID of the promotion being updated</li>
+        <li>Provide the fieldset with updated information</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
+<p><strong>To Delete review the following:</strong></p>
+<p>
+    <ol>
+        <li>Select "Delete" as the action you would like to take</li>
+        <li>Select that "Yes" to providing a PromoID and provide the ID of the promotion you wish to remove</li>
+        <li>"Submit" the form</li>
+    </ol>
+</p>
 <form>
     <label>What action would you like to take in the Promotions table: </label>
     <select name="crud" id="crud">
